@@ -5,46 +5,60 @@
     <div class="hero">
       <div class="hero-content text-center">
         <div class="max-w-md">
-          <h1>Welcome!</h1>
+          <h1>Hello there</h1>
           <p>
-            Unlock productivity and streamline your workflow with our SaaS
-            Chrome extension platform.
+            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
+            a id nisi.
           </p>
 
           <div class="flex gap-2 justify-center mb-4">
-            <UButton
+            <RouterLink
               to="/common/features"
-              icon="ph:list-heart"
-              variant="subtle"
+              class="btn btn-primary"
             >
+              <i-ph-list-heart />
               Features
-            </UButton>
-            <UButton
+            </RouterLink>
+            <RouterLink
               to="/common/pricing"
-              icon="ph:presentation-chart"
-              variant="subtle"
+              class="btn btn-primary"
             >
-              Features
-            </UButton>
+              <i-ph-presentation-chart />
+              Pricing
+            </RouterLink>
           </div>
 
-          <UButton
+          <RouterLink
             to="/common/account/login"
-            icon="ph:rocket-launch"
-            size="xl"
+            class="btn btn-secondary btn-lg"
           >
+            <i-ph-rocket-launch />
             Get Started Now
-          </UButton>
+          </RouterLink>
 
-          <div class="flex justify-evenly my-6">
-            <RouterLink to="/action-popup/playground">Playground</RouterLink>
+          <br />
 
-            <a href="https://github.com/mubaidr/vite-vue3-browser-extension-v3">
-              Documentation
-            </a>
+          <RouterLink
+            to="/action-popup/playground"
+            class="btn btn-link"
+          >
+            Playground
+          </RouterLink>
 
-            <a href="https://mubaidr.js.org">Support</a>
-          </div>
+          <a
+            class="btn btn-link"
+            href="https://github.com/mubaidr/vite-vue3-browser-extension-v3"
+          >
+            Documentation
+          </a>
+
+          <a
+            class="btn btn-link"
+            href="https://mubaidr.js.org"
+          >
+            Support
+          </a>
         </div>
       </div>
     </div>

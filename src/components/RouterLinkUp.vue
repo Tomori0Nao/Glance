@@ -7,13 +7,13 @@ defineProps<{
 </script>
 
 <template>
-  <UButton
-    class="my-4"
-    icon="ph:arrow-left"
+  <button
+    class="btn btn-sm my-4"
     @click="router.back()"
   >
-    {{ label || "Go Back" }}
-  </UButton>
+    <i-ph-arrow-left />
+    {{ label || 'Go Back' }}
+  </button>
 </template>
 
 <style scoped></style>

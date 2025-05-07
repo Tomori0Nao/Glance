@@ -1,60 +1,53 @@
 <script setup lang="ts">
+import { ApiConfig } from "@/src/utils/options-page";
+import { ref } from "vue";
 const optionsStore = useOptionsStore()
-// const { toggleDark } = optionsStore
-const { isDark, profile, others } = storeToRefs(optionsStore)
+// const { api_config,setApiConfig } = storeToRefs(optionsStore)
+
+const form_data = ref<ApiConfig>({ api_key: '', url: '', model: '', app_id: '', firecrawl_url: '' })
+const snackbar = ref(false)
+const rules = [
+  (value: string) => {
+    if (value) return true
+    return 'Please enter a value'
+  },
+]
+const text = ref('config finished!!!')
+function submit() {
+  console.log(form_data)
+  snackbar.value = true
+  chrome.runtime.sendMessage({ action: { type: "config" }, message: form_data.value }, function (response: conmmonResponese) {
+    if (response["action"]["type"] == "config_finished") {
+      chrome.runtime.sendMessage({ action: { type: "config_finished_recieved" }, message: response['action'] })
+    }
+  })
+  // optionsStore.setApiConfig(form_data.value.api_key, form_data.value.url, form_data.value.model, form_data.value.app_id, form_data.value.firecrawl_url)
+}
 </script>
 
 <template>
-  <div
-    class="max-w-xl w-full mx-auto rounded-xl md:my-12 p-4 md:p-8 md:border border-base-200 md:shadow-lg bg-base-100"
-  >
-    <RouterLinkUp />
+  <RouterLinkUp />
+  <div>
+    <v-sheet class="mx-auto" width="300">
+      <v-form @submit.prevent>
+        <v-text-field v-model="form_data.api_key" :rules="rules" label="api key"></v-text-field>
+        <v-text-field v-model="form_data.url" :rules="rules" label="url"></v-text-field>
+        <v-text-field v-model="form_data.model" :rules="rules" label="model name"></v-text-field>
+        <v-text-field v-model="form_data.app_id" :rules="rules" label="app id"></v-text-field>
+        <v-text-field v-model="form_data.firecrawl_url" :rules="rules" label="firecrawl url"></v-text-field>
+        <v-btn class="mt-2" type="submit" block :onclick="submit">Submit</v-btn>
+        <v-snackbar v-model="snackbar">
+          {{ text }}
 
-    <h1>Options</h1>
-    <p>
-      You can configure various options related to this extension here. These
-      options/ settings are peristent, available in all contexts, implemented
-      using Pinia and useBrowserStorage composable.
-    </p>
+          <template v-slot:actions>
+            <v-btn color="pink" variant="text" @click="snackbar = false">
+              Close
+            </v-btn>
+          </template>
+        </v-snackbar> </v-form>
+    </v-sheet>
 
-    <h3>User Interface</h3>
-    <p>Change application interface settings.</p>
-
-    <UForm class="space-y-4">
-      <UFormField label="Theme">
-        <USwitch v-model="isDark" />
-      </UFormField>
-
-      <h3>Profile</h3>
-      <p>Change your name and age.</p>
-
-      <UFormField label="Name">
-        <UInput v-model="profile.name"></UInput>
-      </UFormField>
-
-      <UFormField label="Age">
-        <UInput v-model="profile.age"></UInput>
-      </UFormField>
-
-      <h3>Others</h3>
-      <p>Some other settings related to extension usage.</p>
-
-      <UFormField label="Awesome Feature">
-        <USwitch v-model="others.awesome" />
-      </UFormField>
-
-      <UFormField label="Counter">
-        <UInput
-          v-model="others.counter"
-          type="number"
-        ></UInput>
-      </UFormField>
-
-      <p>
-        * You can also make this a compoenent and then able to use this in any
-        context like Popup, Developer Tools UI etc
-      </p>
-      <p>Feel free to change groups or options as per your requirements.</p>
-    </UForm>
   </div>
+
+
 </template>

@@ -1,5 +1,15 @@
 <script setup lang="ts">
 const displayName = __DISPLAY_NAME__
+const optionsStore = useOptionsStore()
+const { api_config } = storeToRefs(optionsStore)
+console.log(api_config,"api_config");
+
+const rules = [
+  (value: string) => {
+    if (value) return true
+    return 'Please enter a value'
+  },
+]
 // const version = __VERSION__
 </script>
 
@@ -14,6 +24,8 @@ const displayName = __DISPLAY_NAME__
       Now you can close this tab and start using the extension.
     </p>
   </div>
+    
+  
 </template>
 
-<style lang="css" scoped></style>
+<style lang="scss" scoped></style>

@@ -6,30 +6,38 @@ const { count, name } = storeToRefs(testStore)
 
 <template>
   <div>
+    <ul>
+      <li>This is a simple example showing Vue.js and DaisyUI.</li>
+      <li>You can access relevant chrome apis here.</li>
+    </ul>
+
     <!-- Counter Component -->
     <div class="text-center">
       <div>
         <div class="text-lg font-semibold mb-4">Name: {{ name }}</div>
-        <UInput
+        <input
           v-model="name"
           type="text"
+          class="input input-primary"
         />
       </div>
       <br />
       <div class="text-lg font-semibold mb-4">Count: {{ count }}</div>
       <div class="flex gap-2 justify-center">
-        <UButton
-          icon="ph:minus"
+        <button
+          class="btn btn-primary"
           @click="decrement"
         >
+          <i-ph-minus />
           Decrement
-        </UButton>
-        <UButton
-          icon="ph:plus"
+        </button>
+        <button
+          class="btn btn-primary"
           @click="increment"
         >
+          <i-ph-plus />
           Increment
-        </UButton>
+        </button>
       </div>
     </div>
   </div>

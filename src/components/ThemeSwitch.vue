@@ -1,12 +1,18 @@
 <script lang="ts" setup>
 const { isDark, toggleDark } = useTheme()
-applyTheme(isDark ? "dark" : "light")
 </script>
 
 <template>
-  <UButton
-    :icon="isDark ? 'lucide:moon' : 'lucide:sun'"
-    variant="ghost"
-    @click="toggleDark"
-  />
+  <button
+    class="btn-ghost text-primary"
+    @click="toggleDark()"
+  >
+    <template v-if="isDark">
+      <i-ph-moon />
+    </template>
+    <template v-else>
+      <i-ph-sun />
+    </template>
+    Theme
+  </button>
 </template>
